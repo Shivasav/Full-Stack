@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header'); -%>
+
+    <body class="gBody">
+        <%- include('layouts/nav'); -%>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>Dashboard</h1>
+                                <span class="subheading">DriveTest Booking kiosk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="my-5">
+                                <form id="user" data-sb-form-api-token="API_TOKEN" action="/availableAppointments"
+                                    method="POST" onsubmit="return 1">
+                                    <h2 class="subheading">Choose Appointment Date</h2>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="date" name="selectedDate" type="date"
+                                            data-sb-validations="required"  min="2023-12-07"/>
+                                        <label for="date">Choose a date</label>
+                                        <div class="invalid-feedback" data-sb-feedback="date:required">A Date required.
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <!-- Submit Button-->
+                                    <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">
+                                       Select this date </button>
+                                </form>
+                                <br>
+                                <% if (availableTimeSlots) { %>
+                                    <h2>Adding Appointment Slots for:-</h2>
+                                    <h2><%= selectedDate %></h2>
+                                    <form action="/addAppointment" method="POST">
+                                      <input class="form-control" id="date" name="selectedDate" type="date" value="<%= selectedDate %>" hidden/>
+                                  
+                                      <label for="timeSlotSelect">Select Time Slot:</label>
+                                      <select id="timeSlotSelect" name="timeSlot">
+                                        <% allTimeSlots.forEach(slot => { %>
+                                            <% if(availableTimeSlots.includes(slot)){ %>
+                                          <option value="<%= slot %>"><%= slot %></option>
+                                          <% }else{ %>
+                                            <option value="<%= slot %>" disabled><%= slot %></option>
+                                            <% }  %>
+                                        <% }); %>
+                                      </select>
+                                        <br>
+                                        <br>
+                                      <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">
+                                        Add this time in slot</button>
+                                    </form>
+                                  <% } %>
+                                  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('layouts/footer'); -%>
+                <%- include('layouts/script'); -%>
+    </body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header'); -%>
+
+    <body class="gBody">
+        <!-- Navigation-->
+        <%- include('layouts/nav'); -%>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('assets/img/post-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="post-heading">
+                                <h1>Book G2 Test</h1>
+                                <span class="subheading">Book your G2 Test over here.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Post Content-->
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="my-5">
+                                <form id="user" data-sb-form-api-token="API_TOKEN" action="/submit" method="POST"
+                                    onsubmit="return validateG2Form()">
+                                    <h2 class="subheading">Personal Information</h2>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="firstName" name="firstName" type="text"
+                                            placeholder="Enter your First Name..." data-sb-validations="required" />
+                                        <label for="firstName">First Name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="firstName:required">A First Name
+                                            is
+                                            required.</div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="lastName" name="lastName" type="text"
+                                            placeholder="Enter your Last Name..." data-sb-validations="required" />
+                                        <label for="lastName">Last Name</label>
+                                        <div class="invalid-feedback" data-sb-feedback="lastName:required">A Last Name
+                                            is
+                                            required.</div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="licenceNo" name="licenceNo" type="text"
+                                            placeholder="Enter your License Number (8 characters alphanumeric)..."
+                                            data-sb-validations="required" pattern="[A-Za-z0-9]{8}" />
+                                        <label for="licenceNo">licence Number</label>
+                                        <div class="invalid-feedback" data-sb-feedback="licenceNo:required">A
+                                            licence Number is required.</div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="age" name="age" type="number"
+                                            placeholder="Enter your Age..." data-sb-validations="required" />
+                                        <label for="age">Age</label>
+                                        <div class="invalid-feedback" data-sb-feedback="age:required">An Age is
+                                            required.</div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" id="dob" type="date" name="dob"
+
+                                            placeholder="Enter your DOB..."  required max="2004-01-01"  />
+                                        <label for="dob">DOB</label>
+                                        <div class="invalid-feedback" data-sb-feedback="dob:required">A DOB is required.
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <h2 class="subheading">Car Information</h2>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" id="make" name="make"
+                                            placeholder="Enter your Make..." data-sb-validations="required" />
+                                        <label for="make">Make</label>
+                                        <div class="invalid-feedback" data-sb-feedback="make:required">A Make is
+                                            required.</div>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" id="model" name="model"
+                                            placeholder="Enter your Model..." data-sb-validations="required" />
+                                        <label for="Model">Model</label>
+                                        <div class="invalid-feedback" data-sb-feedback="model:required">A Model is
+                                            required.</div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" type="number" id="year" name="year"
+                                            placeholder="Enter your year..." data-sb-validations="required"  min="1950" max="2023" />
+                                        <label for="year">Year</label>
+                                        <div class="invalid-feedback" data-sb-feedback="model:required">A year is
+                                            required.</div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" type="text" id="plateNo" name="plateNo"
+                                            placeholder="Enter your Plate Number..." data-sb-validations="required" />
+                                        <label for="plateNo">Plate Number</label>
+                                        <div class="invalid-feedback" data-sb-feedback="plateNo:required">An Plate
+                                            Number is required.</div>
+                                    </div>
+                                    <br />
+
+                                    <h2 class="subheading">Test Type</h2>
+                                    <div class="form-group">
+                                        <label for="testType" class="subheading" >Select :</label>
+                                        <select class="form-control" id="testType" name="testType">
+                                            <option value="G2">G2</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </div>
+                                    <br />
+
+                                    <h2 class="subheading">Choose Appointment Date</h2>
+
+                                    <div class="form-floating">
+                                        <input class="form-control" id="dateg2" name="selectedDate" type="date"
+                                            data-sb-validations="required" />
+                                        <label for="date">Choose a date</label>
+                                        <div class="invalid-feedback" data-sb-feedback="date:required">A Date required.
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <!-- Add this div to display a message -->
+                                    <div id="noSlotsMessage" class="alert alert-info" role="alert" style="display: none;">
+                                        No slots available for the selected date.
+                                    </div>
+
+  
+
+                                    <select id="timeSlotSelect" name="timeSlot" hidden>
+                                    </select>
+                                    <br />
+                                    <br>
+                                    <!-- Submit error message-->
+                                    <!---->
+                                    <!-- This is what your users will see when there is-->
+                                    <!-- an error submitting the form-->
+                                    <div class="d-none" id="submitErrorMessage">
+                                        <div class="text-center text-danger mb-3">Error sending message!</div>
+                                    </div>
+                                    <!-- Submit Button-->
+                                    <button class="btn btn-primary text-uppercase" id="submitButton"
+                                        type="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Footer-->
+            <%- include('layouts/footer'); -%>
+                <%- include('layouts/script'); -%>
+    </body>
+
+</html> 

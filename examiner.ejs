@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header'); -%>
+
+    <body class="gBody">
+        <%- include('layouts/nav'); -%>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>Examiner Panel</h1>
+                                <span class="subheading"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-12 col-lg-10 col-xl-8">
+                            <div class="my-5">
+                                <form id="user" data-sb-form-api-token="API_TOKEN" action="/filter-appointments"
+                                    method="POST" onsubmit="return 1">
+
+                                    <h2 class="subheading">Select Test Type</h2>
+                                    <div class="form-group">
+                                        <label for="testType" class="subheading">Select :</label>
+                                        <select class="form-control" id="testType" name="testType">
+                                            <option value="G2">G2</option>
+                                            <option value="G">G</option>
+                                        </select>
+                                    </div>
+                                    <br />
+                                     <!-- Submit Button-->
+                                     <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Submit</button>
+                                </form>
+                                <br>
+                                <% if (appointments && appointments.length > 0) { %>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Age</th>
+                                                    <th>Make</th>
+                                                    <th>Model</th>
+                                                    <th>year</th>
+                                                    <th>plate Number</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% appointments.forEach(appointment => { %>
+                                                    <tr userId="<%= appointment._id %>">
+                                                        <td><%= appointment.firstName %></td>
+                                                        <td><%= appointment.lastName %></td>
+                                                        <td><%= appointment.age %></td>
+                                                        <td><%= appointment.car_details.make %></td>
+                                                        <td><%= appointment.car_details.model %></td>
+                                                        <td><%= appointment.car_details.year %></td>
+                                                        <td><%= appointment.car_details.plateNo %></td>
+                                                        <td>
+                                                            <a href="/driver-details/<%= appointment._id %>">View Profile</a>
+                                                        </td>
+                                                    </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <% } else { %>
+                                    <p>No appointments available.</p>
+                                <% } %>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('layouts/footer'); -%>
+                <%- include('layouts/script'); -%>
+    </body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('layouts/header'); -%>
+
+    <body class="gBody">
+        <%- include('layouts/nav'); -%>
+            <!-- Page Header-->
+            <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>Admin Panel</h1>
+                                <span class="subheading"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="mb-4">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-12 col-lg-10 col-xl-8">
+                            <div class="my-5">
+                                <form id="user" data-sb-form-api-token="API_TOKEN" action="/filterUsers"
+                                    method="POST" onsubmit="return 1">
+
+                                    <h2 class="subheading">List Candidate:</h2>
+                                    <div class="form-group">
+                                        <label for="testResult" class="subheading">Select :</label>
+                                        <select class="form-control" id="testResult" name="testResult">
+                                            <option value="pass">Pass</option>
+                                            <option value="fail">Fail</option>
+                                        </select>
+                                    </div>
+                                    <br />
+                                     <!-- Submit Button-->
+                                     <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Submit</button>
+                                </form>
+                                <br>
+                                <% if (users && users.length > 0) { %>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Age</th>
+                                                    <th>Make</th>
+                                                    <th>Model</th>
+                                                    <th>year</th>
+                                                    <th>plate Number</th>
+                                                    <th>Test Result</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% users.forEach(user => { %>
+                                                    <tr userId="<%= user._id %>">
+                                                        <td><%= user.firstName %></td>
+                                                        <td><%= user.lastName %></td>
+                                                        <td><%= user.age %></td>
+                                                        <td><%= user.car_details.make %></td>
+                                                        <td><%= user.car_details.model %></td>
+                                                        <td><%= user.car_details.year %></td>
+                                                        <td><%= user.car_details.plateNo %></td>
+                                                        <% if (user.testResult == true) { %>
+                                                            <td>Pass</td>
+                                                            <% } else { %>
+                                                            <td>Fail</td>
+                                                        <% } %>
+                                                    </tr>
+                                                <% }); %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <% } else { %>
+                                    <p>No users available.</p>
+                                <% } %>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('layouts/footer'); -%>
+                <%- include('layouts/script'); -%>
+    </body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+    <%- include('layouts/header'); -%>
+    <body class="gBody">
+        <!-- Navigation-->
+        <%- include('layouts/nav'); -%>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/about-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Book G Test</h1>
+                            <span class="subheading">Book your G Test Here.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <br/>
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="my-5">
+                            <br/>
+                            <form>
+                                <h2 class="subheading">Personal Information</h2>
+                                <div class="form-floating">
+                                    <input class="form-control" id="firstName" name="firstName" type="text"
+                                         disabled value = "<%= user.firstName%>"/>
+                                    <label for="firstName">First Name</label>
+                                    
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="lastName" name="lastName" type="text"
+                                        disabled value= "<%= user.lastName %>" />
+                                    <label for="lastName">Last Name</label>
+                                    
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="age" name="age" type="number"
+                                        disabled value= "<%= user.age %>"/>
+                                    <label for="age">Age</label>
+                                    
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="dob"  name="dob" type="date"
+                                         disabled value= "<%= helpers.formatDate(user.dob) %>"/>
+                                    <label for="dob">DOB</label>
+                                    
+                                </div>
+                                <br />
+                                <h2 class="subheading">Appointment Details</h2>
+
+                                <div class="form-floating">
+                                    <input class="form-control" id="selectedDate"  name="selectedDate" type="date"
+                                         disabled value= "<%= helpers.formatDate(appointment.date) %>"/>
+                                    <label for="selectedDate">Appointment Date</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="timeSlot" name="timeSlot" type="text"
+                                        disabled value= "<%= appointment.time %>"/>
+                                    <label for="timeSlot">Time</label>
+                                </div>
+                                <br />
+                            </form>
+
+
+                            <form data-sb-form-api-token="API_TOKEN" action="/updateCar" method="POST" onsubmit="return validateGForm()">
+                                <h2 class="subheading"> Edit Car Information</h2>
+                                <div class="form-floating">
+                                    <input class="form-control" type="text" id="editMake" name="make"
+                                        value= "<%= user.car_details.make %>" data-sb-validations="required" />
+                                    <label for="editMake">Make</label>
+                                    <div class="invalid-feedback" data-sb-feedback="editMake:required">A Make is
+                                        required.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" type="text" id="editModel" name="model"
+                                        value= "<%= user.car_details.model %>" data-sb-validations="required" />
+                                    <label for="editModel">Model</label>
+                                    <div class="invalid-feedback" data-sb-feedback="editModel:required">A Model is
+                                        required.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" type="number" id="editYear" name="year"
+                                        value= "<%= user.car_details.year %>"  data-sb-validations="required"  min="1950" max="2023"/>
+                                    <label for="editYear">Year</label>
+                                    <div class="invalid-feedback" data-sb-feedback="editYear:required">A year is
+                                        required.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" type="text" id="editPlateNo" name="plateNo"
+                                        value= "<%= user.car_details.plateNo %>" data-sb-validations="required" />
+                                    <label for="editPlateNo">Plate Number</label>
+                                    <div class="invalid-feedback" data-sb-feedback="editPlateNo:required">An Plate
+                                        Number is required.</div>
+                                </div>
+                                <br />
+                                    <!-- Submit error message-->
+                                    <!---->
+                                    <!-- This is what your users will see when there is-->
+                                    <!-- an error submitting the form-->
+                                    <div class="d-none" id="submitErrorMessage">
+                                        <div class="text-center text-danger mb-3">Error sending message!</div>
+                                    </div>
+                                    <!-- Submit Button-->
+                                    <button class="btn btn-primary text-uppercase" id="submitButton"
+                                        type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer--> 
+       
+        <!-- Bootstrap core JS-->
+        <%- include('layouts/footer'); -%>
+        <%- include('layouts/script'); -%>
+    </body>
+</html>

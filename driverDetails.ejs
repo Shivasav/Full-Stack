@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+    <%- include('layouts/header'); -%>
+    <body class="gBody">
+        <!-- Navigation-->
+        <%- include('layouts/nav'); -%>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/about-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>User Details</h1>
+                            <span class="subheading"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <br/>
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="my-5">
+                            <br/>
+                                <h2 class="subheading">Personal Information</h2>
+                                <div class="form-floating">
+                                    <input class="form-control" id="firstName" name="firstName" type="text"
+                                         disabled value = "<%= driverDetails.firstName%>"/>
+                                    <label for="firstName">First Name</label>
+                                    
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="lastName" name="lastName" type="text"
+                                        disabled value= "<%= driverDetails.lastName %>" />
+                                    <label for="lastName">Last Name</label>
+                                    
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="age" name="age" type="number"
+                                        disabled value= "<%= driverDetails.age %>"/>
+                                    <label for="age">Age</label>
+                                    
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="dob"  name="dob" type="date"
+                                         disabled value= "<%= helpers.formatDate(driverDetails.dob) %>"/>
+                                    <label for="dob">DOB</label>
+                                    
+                                </div>
+                                <br />
+                                <h2 class="subheading">Appointment Details</h2>
+
+                                <div class="form-floating">
+                                    <input class="form-control" id="selectedDate"  name="selectedDate" type="date"
+                                         disabled value= "<%= helpers.formatDate(appointment.date) %>"/>
+                                    <label for="selectedDate">Appointment Date</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="timeSlot" name="timeSlot" type="text"
+                                        disabled value= "<%= appointment.time %>"/>
+                                    <label for="timeSlot">Time</label>
+                                </div>
+                                <br />
+
+                            <h2 class="subheading">Update Test Result</h2>
+                            <form action="/postResult/<%= driverDetails._id %>" method="POST">
+                                    <div class="form-group">
+                                        <label for="comment" class="subheading" >Comment : </label>
+                                        <textarea class="form-control" id="comment" name="comment" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <br />
+                                <div class="form-group">
+                                    <label for="testResult" class="subheading" >Is Passed : </label>
+                                    <select class="form-control" id="testResult" name="testResult">
+                                        <option value="true">true</option>
+                                        <option value="false">false</option>
+                                    </select>
+                                </div>
+                                <br />
+                                <button class="btn btn-primary text-uppercase" id="submitButton"
+                                        type="submit">Post</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer-->
+       
+        <!-- Bootstrap core JS-->
+        <%- include('layouts/footer'); -%>
+        <%- include('layouts/script'); -%>
+    </body>
+</html>
